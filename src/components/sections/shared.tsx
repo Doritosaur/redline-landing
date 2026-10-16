@@ -93,7 +93,15 @@ const TOKEN_COLORS = {
 const TS_KEYWORDS = new Set(['export', 'default', 'import', 'from', 'const', 'let', 'return', 'true', 'false', 'null']);
 const TOKEN_RE = /(\/\/.*|#.*)|('[^'\n]*'|"[^"\n]*"|“[^”]*”)|(--?[a-zA-Z][\w-]*)|(\b\d+(?:\.\d+)?\b)|([A-Za-z_@][\w@/.:-]*)(\s*:)?/g;
 
-interface TokenParts { text: string; comment?: string; str?: string; flag?: string; num?: string; word?: string; colon?: string }
+interface TokenParts {
+  text: string;
+  comment?: string | undefined;
+  str?: string | undefined;
+  flag?: string | undefined;
+  num?: string | undefined;
+  word?: string | undefined;
+  colon?: string | undefined;
+}
 
 function wordColor({ word, colon }: TokenParts, shell: boolean, firstWord: boolean): string | undefined {
   if (colon) {return TOKEN_COLORS.prop;}
