@@ -1,11 +1,11 @@
-import { Coming } from '@/components/sections/Coming';
+import { Beyond } from '@/components/sections/Beyond';
 import { Faq } from '@/components/sections/Faq';
 import { Features } from '@/components/sections/Features';
 import { Footer } from '@/components/sections/Footer';
 import { Hero } from '@/components/sections/Hero';
+import { Install } from '@/components/sections/Install';
 import { Loop } from '@/components/sections/Loop';
 import { Nav } from '@/components/sections/Nav';
-import { Testimonials } from '@/components/sections/Testimonials';
 
 export default function App(): React.JSX.Element {
   return (
@@ -16,8 +16,8 @@ export default function App(): React.JSX.Element {
         <Hero />
         <Features />
         <Loop />
-        <Coming />
-        <Testimonials />
+        <Beyond />
+        <Install />
         <Faq />
       </main>
       <Footer />

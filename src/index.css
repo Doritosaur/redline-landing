@@ -89,12 +89,12 @@
 }
 
 .dark {
-    --background: #0b0909;
-    --surface: #140f10;
-    --accent-red: #ff4438;
-    --crimson: #b3122b;
+    --background: #050505;
+    --surface: #0f0f0f;
+    --accent-red: #ff2d2d;
+    --crimson: #a30000;
     --foreground: oklch(0.985 0 0);
-    --card: #140f10;
+    --card: #0f0f0f;
     --card-foreground: oklch(0.985 0 0);
     --popover: oklch(0.205 0 0);
     --popover-foreground: oklch(0.985 0 0);
@@ -151,7 +151,15 @@ body {
     inset: 0 0 auto 0;
     height: 76px;
     pointer-events: none;
-    background: linear-gradient(to bottom, #e63a2e 0%, rgb(179 18 43 / 0.55) 45%, transparent 100%);
+    background: linear-gradient(to bottom, #f02323 0%, rgb(163 0 0 / 0.55) 45%, transparent 100%);
+}
+
+.fade-edges {
+    --fade: 5%;
+    mask-image:
+        linear-gradient(to right, transparent, #000 var(--fade), #000 calc(100% - var(--fade)), transparent),
+        linear-gradient(to bottom, transparent, #000 calc(var(--fade) * 1.6), #000 calc(100% - var(--fade) * 1.6), transparent);
+    mask-composite: intersect;
 }
 
 .reveal {
@@ -175,4 +183,22 @@ body {
         transition-duration: 0.001ms !important;
     }
     .reveal { opacity: 1; transform: none; }
+}
+
+/* Slim, themed scrollbar for code snippets (replaces the chunky native one). */
+.code-scroll {
+    scrollbar-width: thin;
+    scrollbar-color: rgb(255 255 255 / 0.18) transparent;
+}
+.code-scroll::-webkit-scrollbar { height: 6px; }
+.code-scroll::-webkit-scrollbar-track { background: transparent; }
+.code-scroll::-webkit-scrollbar-thumb {
+    background: rgb(255 255 255 / 0.15);
+    border-radius: 999px;
+}
+.code-scroll::-webkit-scrollbar-thumb:hover { background: rgb(255 255 255 / 0.3); }
+
+::selection {
+    background: rgb(255 45 45 / 0.35);
+    color: #fff;
 }

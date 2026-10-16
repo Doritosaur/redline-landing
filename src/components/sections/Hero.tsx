@@ -1,4 +1,4 @@
-import { Container, CtaButton, Reveal, Screenshot } from './shared';
+import { AddToClaude, Container, Reveal, Screenshot } from './shared';
 
 export function Hero(): React.JSX.Element {
   return (
@@ -6,24 +6,25 @@ export function Hero(): React.JSX.Element {
       <Container>
         <Reveal>
           <h1 className="font-heading text-4xl leading-[1.05] font-medium tracking-tight sm:text-7xl">
-            Placeholder headline
+            Know exactly what to fix.
             <br />
-            <span className="text-foreground/50">goes right here</span>
+            <span className="text-foreground/50">Then prove it worked.</span>
           </h1>
         </Reveal>
         <Reveal delay={100}>
           <p className="mt-7 max-w-xl text-base leading-relaxed text-foreground/70 sm:text-lg">
-            A short placeholder description of what the product does and who it is for. Replace with one or two sentences.
+            Redline audits localhost and live URLs, ranks fixes by impact, and points to the source file or npm package
+            responsible. Use it from the CLI, in CI, or straight from Claude.
           </p>
         </Reveal>
         <Reveal delay={200}>
           <div className="mt-9 flex flex-wrap items-center gap-5">
-            <CtaButton />
-            <span className="font-mono text-xs text-muted-foreground">Preview · more platforms coming</span>
+            <AddToClaude />
+            <span className="font-mono text-xs text-muted-foreground">or run npx @redline/cli localhost:3000</span>
           </div>
         </Reveal>
         <Reveal delay={320} className="mt-16">
-          <Screenshot />
+          <Screenshot alt="Redline report showing ranked fixes" />
         </Reveal>
       </Container>
     </section>

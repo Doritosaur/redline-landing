@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Button } from '@/components/ui/button';
-import { Container } from './shared';
+import { AddToClaude, Container } from './shared';
 
 export function Nav(): React.JSX.Element {
   const [scrolled, setScrolled] = useState(false);
@@ -27,10 +26,10 @@ export function Nav(): React.JSX.Element {
           redline
         </a>
         <nav className="flex items-center gap-7 text-sm text-foreground/70">
-          <a href="#loop" className="hidden transition-colors hover:text-foreground sm:inline">Workflow</a>
+          <a href="#loop" className="hidden transition-colors hover:text-foreground sm:inline">How it works</a>
+          <a href="#install" className="hidden transition-colors hover:text-foreground sm:inline">Install</a>
           <a href="#faq" className="hidden transition-colors hover:text-foreground sm:inline">FAQ</a>
-          <a href="#" className="hidden transition-colors hover:text-foreground sm:inline">Docs</a>
-          <Button className="h-8 rounded-md px-3.5 text-[13px]">Get Redline</Button>
+          <AddToClaude small />
         </nav>
       </Container>
     </header>
