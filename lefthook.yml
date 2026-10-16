@@ -1,0 +1,14 @@
+pre-commit:
+  commands:
+    lint:
+      glob: '*.{ts,tsx,js,mjs,cjs}'
+      run: pnpm exec eslint --max-warnings 0 {staged_files}
+
+pre-push:
+  commands:
+    typecheck:
+      run: pnpm typecheck
+    lint:
+      run: pnpm lint
+    build:
+      run: pnpm build
