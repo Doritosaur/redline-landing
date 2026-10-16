@@ -1,3 +1,4 @@
+import beyond from '@/assets/beyond.png';
 import { Container, Eyebrow, Heading, Reveal, Screenshot } from './shared';
 
 const ITEMS = [
@@ -19,7 +20,7 @@ export function Beyond(): React.JSX.Element {
         </Heading>
         <div className="mt-14 grid items-center gap-10 lg:grid-cols-[1fr_380px] lg:gap-16">
           <Reveal>
-            <Screenshot alt="Redline cross-browser results" />
+            <Screenshot src={beyond} alt="Redline cross-browser results" />
           </Reveal>
           <div className="flex flex-col gap-7">
             {ITEMS.map((it, i) => (

@@ -1,3 +1,4 @@
+import runDesk from '@/assets/run_desk.png';
 import { AddToClaude, Container, Reveal, Screenshot } from './shared';
 
 export function Hero(): React.JSX.Element {
@@ -24,7 +25,7 @@ export function Hero(): React.JSX.Element {
           </div>
         </Reveal>
         <Reveal delay={320} className="mt-16">
-          <Screenshot alt="Redline report showing ranked fixes" />
+          <Screenshot src={runDesk} alt="Redline CLI audit of a desktop page showing Core Web Vitals and ranked fixes" />
         </Reveal>
       </Container>
     </section>

@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { Check, Copy } from 'lucide-react';
 import claudeCodeIcon from '@/assets/claude-code.png';
-import dummyScreenshot from '@/assets/dummy.png';
 import { Button } from '@/components/ui/button';
 import { MCP_COMMAND, useCopy } from '@/lib/copy';
 
@@ -165,12 +164,21 @@ export function CodeBlock({ code, label, shell = label === 'terminal' }: { code:
   );
 }
 
-/** Frame for a real product screenshot. Defaults to a dummy image; pass `src` for the real one. */
-export function Screenshot({ src, alt = 'Product screenshot', className = '' }: { src?: string; alt?: string; className?: string }): React.JSX.Element {
+/** Frame for a product screenshot. Without `src` it renders an empty placeholder frame. */
+export function Screenshot({ src, alt = '', className = '' }: { src?: string; alt?: string; className?: string }): React.JSX.Element {
+  if (!src) {
+    return (
+      <div
+        aria-hidden
+        className={`flex aspect-[16/10] w-full items-center justify-center rounded-lg border border-dashed border-white/10 bg-surface font-mono text-xs text-muted-foreground ${className}`}
+      >
+        Screenshot coming soon
+      </div>
+    );
+  }
   return (
     <div className={`fade-edges ${className}`}>
-      {/* placeholder images are decorative, so they carry no alt text */}
-      <img src={src ?? dummyScreenshot} alt={src ? alt : ''} className="block w-full" />
+      <img src={src} alt={alt} className="block w-full" />
     </div>
   );
 }
