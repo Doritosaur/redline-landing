@@ -19,11 +19,14 @@ export function Reveal({
   className?: string;
 }): React.JSX.Element {
   const ref = useRef<HTMLDivElement>(null);
-  const [shown, setShown] = useState(false);
+  const [shown, setShown] = useState(() => typeof IntersectionObserver === 'undefined');
 
   useEffect(() => {
     const el = ref.current;
     if (!el) {
+      return;
+    }
+    if (shown) {
       return;
     }
     const io = new IntersectionObserver(
@@ -39,7 +42,7 @@ export function Reveal({
     return () => {
       io.disconnect();
     };
-  }, []);
+  }, [shown]);
 
   return (
     <div ref={ref} className={`reveal ${shown ? 'in' : ''} ${className}`} style={{ '--d': `${delay}ms` } as React.CSSProperties}>
@@ -91,7 +94,9 @@ const TOKEN_COLORS = {
 } as const;
 
 const TS_KEYWORDS = new Set(['export', 'default', 'import', 'from', 'const', 'let', 'return', 'true', 'false', 'null']);
-const TOKEN_RE = /(\/\/.*|#.*)|('[^'\n]*'|"[^"\n]*"|“[^”]*”)|(--?[a-zA-Z][\w-]*)|(\b\d+(?:\.\d+)?\b)|([A-Za-z_@][\w@/.:-]*)(\s*:)?/g;
+const REST = String.raw`|('[^'\n]*'|"[^"\n]*"|“[^”]*”)|(--?[a-zA-Z][\w-]*)|(\b\d+(?:\.\d+)?\b)|([A-Za-z_@][\w@/.:-]*)(\s*:)?`;
+const SHELL_RE = new RegExp(String.raw`(#.*)` + REST, 'g');
+const TS_RE = new RegExp(String.raw`(\/\/.*)` + REST, 'g');
 
 interface TokenParts {
   text: string;
@@ -111,7 +116,7 @@ function wordColor({ word, colon }: TokenParts, shell: boolean, firstWord: boole
 }
 
 function tokenColor(t: TokenParts, shell: boolean, firstWord: boolean): string | undefined {
-  if (t.comment && t.text.startsWith(shell ? '#' : '//')) {return TOKEN_COLORS.comment;}
+  if (t.comment) {return TOKEN_COLORS.comment;}
   if (t.str) {return TOKEN_COLORS.string;}
   if (t.flag && shell) {return TOKEN_COLORS.flag;}
   if (t.num) {return TOKEN_COLORS.number;}
@@ -123,9 +128,10 @@ function highlight(code: string, shell: boolean): React.ReactNode[] {
   const out: React.ReactNode[] = [];
   let last = 0;
   let firstWord = true;
+  const re = shell ? SHELL_RE : TS_RE;
   let m: RegExpExecArray | null;
-  TOKEN_RE.lastIndex = 0;
-  while ((m = TOKEN_RE.exec(code))) {
+  re.lastIndex = 0;
+  while ((m = re.exec(code))) {
     if (m.index > last) {
       const gap = code.slice(last, m.index);
       if (gap.includes('\n')) {firstWord = true;}
@@ -141,12 +147,12 @@ function highlight(code: string, shell: boolean): React.ReactNode[] {
   return out;
 }
 
-export function CodeBlock({ code, label }: { code: string; label?: string }): React.JSX.Element {
+export function CodeBlock({ code, label, shell = label === 'terminal' }: { code: string; label?: string; shell?: boolean }): React.JSX.Element {
   const [copied, copy] = useCopy(code);
   return (
     <div className="group relative rounded-lg border border-white/10 bg-surface">
       {label ? <div className="border-b border-white/10 px-4 py-2 font-mono text-[11px] text-muted-foreground">{label}</div> : null}
-      <pre className="whitespace-pre-wrap break-words p-4 pr-12 font-mono text-[13px] leading-relaxed text-foreground/85">{highlight(code, label === 'terminal')}</pre>
+      <pre className="whitespace-pre-wrap break-words p-4 pr-12 font-mono text-[13px] leading-relaxed text-foreground/85">{highlight(code, shell)}</pre>
       <button
         type="button"
         onClick={copy}
@@ -160,10 +166,11 @@ export function CodeBlock({ code, label }: { code: string; label?: string }): Re
 }
 
 /** Frame for a real product screenshot. Defaults to a dummy image; pass `src` for the real one. */
-export function Screenshot({ src = dummyScreenshot, alt = 'Product screenshot', className = '' }: { src?: string; alt?: string; className?: string }): React.JSX.Element {
+export function Screenshot({ src, alt = 'Product screenshot', className = '' }: { src?: string; alt?: string; className?: string }): React.JSX.Element {
   return (
     <div className={`fade-edges ${className}`}>
-      <img src={src} alt={alt} className="block w-full" />
+      {/* placeholder images are decorative, so they carry no alt text */}
+      <img src={src ?? dummyScreenshot} alt={src ? alt : ''} className="block w-full" />
     </div>
   );
 }

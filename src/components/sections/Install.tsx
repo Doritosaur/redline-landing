@@ -17,9 +17,13 @@ const CARDS = [
   },
   {
     title: 'In CI',
-    body: 'Run the GitHub Action on every pull request and fail on budget regressions.',
+    body: 'Run the CLI in GitHub Actions on every pull request. Budgets in redline.config.ts fail the build on regressions.',
     label: 'redline.config.ts',
     code: "export default {\n  baseUrl: 'http://localhost:3000',\n  pages: ['/', '/pricing'],\n  runs: 3,\n  budgets: { score: 80, lcp: 2500, cls: 0.1 },\n};",
+    second: {
+      label: '.github/workflows/redline.yml',
+      code: 'on: pull_request\njobs:\n  redline:\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v4\n      - uses: actions/setup-node@v4\n        with:\n          node-version: 22\n      - run: npm ci && npm run dev &\n      - run: npx wait-on http://localhost:3000 && npx @redline/cli http://localhost:3000',
+    },
   },
 ];
 
@@ -43,6 +47,7 @@ export function Install(): React.JSX.Element {
                 </div>
                 <div className="flex flex-col gap-4">
                   <CodeBlock label={c.label} code={c.code} />
+                  {c.second ? <CodeBlock label={c.second.label} code={c.second.code} shell /> : null}
                   {c.extra ? <p className="font-mono text-xs leading-relaxed text-muted-foreground">{c.extra}</p> : null}
                 </div>
               </div>

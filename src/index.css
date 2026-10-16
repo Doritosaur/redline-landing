@@ -54,6 +54,9 @@
 }
 
 :root {
+    --surface: #0f0f0f;
+    --accent-red: #ff2d2d;
+    --crimson: #a30000;
     --background: oklch(1 0 0);
     --foreground: oklch(0.145 0 0);
     --card: oklch(1 0 0);
@@ -90,9 +93,6 @@
 
 .dark {
     --background: #050505;
-    --surface: #0f0f0f;
-    --accent-red: #ff2d2d;
-    --crimson: #a30000;
     --foreground: oklch(0.985 0 0);
     --card: #0f0f0f;
     --card-foreground: oklch(0.985 0 0);
@@ -162,7 +162,7 @@ body {
     mask-composite: intersect;
 }
 
-.reveal {
+.js .reveal {
     opacity: 0;
     transform: translateY(14px);
     transition:
@@ -170,7 +170,7 @@ body {
         transform 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) var(--d, 0ms);
 }
 
-.reveal.in {
+.js .reveal.in {
     opacity: 1;
     transform: none;
 }
@@ -182,7 +182,7 @@ body {
         animation-iteration-count: 1 !important;
         transition-duration: 0.001ms !important;
     }
-    .reveal { opacity: 1; transform: none; }
+    .js .reveal { opacity: 1; transform: none; }
 }
 
 /* Slim, themed scrollbar for code snippets (replaces the chunky native one). */
@@ -201,4 +201,8 @@ body {
 ::selection {
     background: rgb(255 45 45 / 0.35);
     color: #fff;
+}
+
+section[id] {
+    scroll-margin-top: 4.5rem;
 }
