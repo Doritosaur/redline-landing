@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 
-export const MCP_COMMAND = 'claude mcp add redline -- npx -y @redline/mcp';
+export const MCP_COMMAND = 'claude mcp add redline -- npx -y @redline-dev/mcp';
 
 export function useCopy(text: string): [boolean, () => void] {
   const [copied, setCopied] = useState(false);

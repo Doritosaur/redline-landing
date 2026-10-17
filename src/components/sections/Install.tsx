@@ -13,7 +13,7 @@ const CARDS = [
     title: 'In your terminal',
     body: 'Audit a dev server or any live URL. Needs Node 22+ and Chrome.',
     label: 'terminal',
-    code: 'npx @redline/cli localhost:3000\nnpx @redline/cli https://example.com --runs 3 --html report.html',
+    code: 'npx redline-dev localhost:3000\nnpx redline-dev https://example.com --runs 3 --html report.html',
   },
   {
     title: 'In CI',
@@ -22,7 +22,7 @@ const CARDS = [
     code: "export default {\n  baseUrl: 'http://localhost:3000',\n  pages: ['/', '/pricing'],\n  runs: 3,\n  budgets: { score: 80, lcp: 2500, cls: 0.1 },\n};",
     second: {
       label: '.github/workflows/redline.yml',
-      code: 'on: pull_request\njobs:\n  redline:\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v4\n      - uses: actions/setup-node@v4\n        with:\n          node-version: 22\n      - run: npm ci && npm run dev &\n      - run: npx wait-on http://localhost:3000 && npx @redline/cli http://localhost:3000',
+      code: 'on: pull_request\njobs:\n  redline:\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v4\n      - uses: actions/setup-node@v4\n        with:\n          node-version: 22\n      - run: npm ci && npm run dev &\n      - run: npx wait-on http://localhost:3000 && npx redline-dev http://localhost:3000',
     },
   },
 ];

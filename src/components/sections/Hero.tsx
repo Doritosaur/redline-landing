@@ -21,7 +21,7 @@ export function Hero(): React.JSX.Element {
         <Reveal delay={200}>
           <div className="mt-9 flex flex-wrap items-center gap-5">
             <AddToClaude />
-            <span className="font-mono text-xs text-muted-foreground">or run npx @redline/cli localhost:3000</span>
+            <span className="font-mono text-xs text-muted-foreground">or run npx redline-dev localhost:3000</span>
           </div>
         </Reveal>
         <Reveal delay={320} className="mt-16">

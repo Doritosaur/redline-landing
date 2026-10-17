@@ -1,4 +1,7 @@
+import githubIcon from '@/assets/github.svg';
 import { AddToClaude, Container, Reveal } from './shared';
+
+const GITHUB_URL = 'https://github.com/Doritosaur/redline';
 
 export function Footer(): React.JSX.Element {
   return (
@@ -18,7 +21,7 @@ export function Footer(): React.JSX.Element {
         <Reveal delay={100}>
           <div className="mt-9 flex flex-wrap items-center gap-5">
             <AddToClaude />
-            <span className="font-mono text-xs text-muted-foreground">or run npx @redline/cli localhost:3000</span>
+            <span className="font-mono text-xs text-muted-foreground">or run npx redline-dev localhost:3000</span>
           </div>
         </Reveal>
         <div className="mt-24 flex flex-wrap items-center justify-between gap-4 border-t border-white/10 pt-6 text-xs text-muted-foreground">
@@ -26,7 +29,18 @@ export function Footer(): React.JSX.Element {
             <a href="#install" className="transition-colors hover:text-foreground">Install</a>
             <a href="#faq" className="transition-colors hover:text-foreground">FAQ</a>
           </div>
-          <p>© 2026 Redline. All rights reserved.</p>
+          <div className="flex items-center gap-5">
+            <a
+              href={GITHUB_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Redline on GitHub"
+              className="group"
+            >
+              <img src={githubIcon} alt="" className="size-5 opacity-60 transition-opacity group-hover:opacity-100" />
+            </a>
+            <p>© 2026 Redline. All rights reserved.</p>
+          </div>
         </div>
       </Container>
     </footer>
